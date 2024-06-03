@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>lab 2</title>
+</head>
+<body>
+    
+<p><strong>№1</strong></p>
+
+<label for="numberInput">Введіть чотирицифрове число:</label>
+<input type="number" id="numberInput"><br>
+<button id="showButton">Знайти</button>
+ <div id="result_1"></div>
+    
+<script>
+ window.onload = function() {
+    document.getElementById('showButton').addEventListener('click', function() {
+         const input = document.getElementById('numberInput').value;
+        displayHiddenNumber(input);
+    });
+    
+    function displayHiddenNumber(value) {
+        const num = parseInt(value);
+    
+        if (!isNaN(num) && value.length === 4) {
+            const digits = num.toString().split('');
+            const hiddenNum = `${digits[0]}__${digits[3]}`;
+            console.log(hiddenNum);
+        } else {
+            console.log("Введіть чотирицифрове число! Спробуйте ще раз!");
+        }
+    }
+}
+    </script>
+
+    
+<p><strong>№2</strong></p>
+
+<label for="xA">Координати точки A:</label><br>
+X<sub>A</sub>: <input type="number" id="xA"><br>
+Y<sub>A</sub>: <input type="number" id="yA"><br>
+
+<label for="xB">Координати точки B:</label><br>
+X<sub>B</sub>: <input type="number" id="xB"><br>
+Y<sub>B</sub>: <input type="number" id="yB"><br>
+
+<button id="determineButton">Знайти</button>
+
+<div id="result_2"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('determineButton').addEventListener('click', function() {
+        const xA = parseInt(document.getElementById('xA').value);
+        const yA = parseInt(document.getElementById('yA').value);
+        const xB = parseInt(document.getElementById('xB').value);
+        const yB = parseInt(document.getElementById('yB').value);
+
+        const distanceA = Math.sqrt(xA * xA + yA * yA);
+        const distanceB = Math.sqrt(xB * xB + yB * yB);
+
+        let resultText = "";
+        if (distanceA > distanceB) {
+            resultText = "Точка A є найбільш віддаленою від початку координат (0,0).";
+        } else if (distanceB > distanceA) {
+            resultText = "Точка B є найбільш віддаленою від початку координат (0,0).";
+        } else {
+            resultText = "Точки A та B розташовані на однаковій відстані від початку координат (0,0).";
+        }
+
+        console.log(resultText);
+    });
+});
+</script>
+    
+<p><strong>№3</strong></p>
+
+<label for="digitInput">Введіть цифру d (0-9):</label>
+<input type="number" id="digitInput" min="0" max="9"><br>
+<button id="findButton">Знайти</button>
+<div id="result_3"></div>
+
+<script>
+document.getElementById('findButton').addEventListener('click', function() {
+    const digit = parseInt(document.getElementById('digitInput').value);
+    if (isNaN(digit) || digit < 0 || digit > 9) {
+        console.log('Введіть коректну цифру (0-9)!');
+        return;
+    }
+
+    const numbers = [];
+    let sum = 0;
+    for (let i = 100; i < 1000; i++) {
+        const numberStr = i.toString();
+        if (numberStr.includes(digit.toString())) {
+            numbers.push(i);
+            sum += i;
+        }
+    }
+
+    console.log('Сума трицифрових чисел, які містять цифру', digit, ':', sum);
+});
+</script>
+
+
+<p><strong>№4</strong></p>
+
+<label for="start">Початок діапазону пошуку:</label>
+<input type="number" id="start" name="start"><br>
+<label for="end">Кінець діапазону пошуку:</label>
+<input type="number" id="end" name="end"><br>
+<button id="searchButton">Знайти</button>
+<div id="result_4"></div>
+
+<script>
+document.getElementById('searchButton').addEventListener('click', function() {
+    const start = parseInt(document.getElementById('start').value);
+    const end = parseInt(document.getElementById('end').value);
+    let result = "";
+
+    function isPalindrome(num) {
+        const strNum = num.toString();
+        return strNum === strNum.split('').reverse().join('');
+    }
+
+    for (let i = start; i <= end; i++) {
+        const square = i * i;
+
+        if (isPalindrome(i) && isPalindrome(square) && i > 9) {
+            console.log(`${i} (квадрат числа: ${square})`);
+        }
+    }
+
+    if (result === "") {
+        console.log("Не знайдено жодного числа паліндромів, квадрати яких також є паліндромами.");
+    }
+});
+</script>
+
+
+</body>
+</html>
